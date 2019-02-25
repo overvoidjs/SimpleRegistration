@@ -14,16 +14,30 @@ class Login extends MX_Controller{
       //  if ($this->session->userdata('id')){
          //   redirect('private_area');
        // }
+
         $this->load->library('form_validation');
         $this->load->library('encryption');
         $this->load->model('login_model');
+        if(isset($_COOKIE['user_id'])){
+            $user = $this->login_model->get_user($_COOKIE['user_id'],FALSE);
+            $user_data = array(
+                'user_id' => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+
+                'logged_in' => true
+            );
+            $this->session->set_userdata($user_data);
+        }
 
 
 
     }
     function index(){
+        $this->load->view('header');
         $this->load->view('login');
-        $this->load->view('layout');
+        $this->load->view('footer');
+
 
 
 
@@ -84,8 +98,9 @@ class Login extends MX_Controller{
             'matches' => "Passwords do not match"
         ));
         if($this->form_validation->run() == FALSE){
-            $this->load->view('layout');
+            $this->load->view('header');
             $this->load->view('password_reset');
+            $this->load->view('footer');
 
         }else{
             $encrypted_password = password_hash($this->input->post('password'),PASSWORD_BCRYPT);
@@ -103,18 +118,17 @@ class Login extends MX_Controller{
 
 
         //validation
-        $this->form_validation->set_rules('email','Email Address','trim|required|callback_check_email_exists');
+        $this->form_validation->set_rules('email','Email Address','trim|required|valid_email');
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger alert-dismissable">', '</div>');
-        $data = array(
-            'forgot_trigger' => 'true'
-        );
+
         if($this->form_validation->run() == FALSE){
+            $this->load->view('header');
             $this->load->view('forgot_password');
-            $this->load->view('layout',$data);
+            $this->load->view('footer');
 
         }else{
             //Send email to user with a reset link
-            $reset_code = random_string('sha1');
+            $reset_code = md5(rand());
             $user = $this->login_model->get_user(FALSE,$this->input->post('email'));
             //Update reset code to database
             $updated = $this->login_model->set_reset_code($reset_code,$user['id']);
@@ -131,14 +145,14 @@ class Login extends MX_Controller{
             );
             if($updated){
                 // Send email to user
-                if(send_email($settings)){
+                if($this->email->send($settings)){
                     $this->session->set_flashdata('reset_email_sent','Reset link sent to your email');
-                    redirect(base_url('forgot_password'));
+                    redirect('login');
                 }
             }else {
                 //Set session message
                 $this->session->set_flashdata('failed_email','Email could not be sent. Please try again later');
-                redirect(base_url('login'));
+                redirect('login');
             }
 
         }

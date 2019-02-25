@@ -23,10 +23,11 @@
             ?>
         <?php endif; ?>
 
-            <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+
             <div class="form-group">
-                <input type="text" name="email" class="form-control input-lg" value="<?php echo set_value('email') ?>" placeholder="Email Address" required autofocus><br>
-            </div>
+                <input type="email" name="email" class="form-control" value="<?php echo set_value('email') ?>" placeholder="Email Address" autofocus><br>
+                <span class="text-danger"> <?php echo form_error('user_email');?></span>
+
 
         <button type="submit" class="btn btn-primary" value="Submit">Submit</button><br>
     </form>

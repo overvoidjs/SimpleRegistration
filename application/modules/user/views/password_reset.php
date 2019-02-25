@@ -8,9 +8,9 @@
  */
 $action_url = "";
 if($this->uri->segment(3) == null && $this->uri->segment(4) == null ){
-    $actin_url = base_url('user/password_reset/'.$this->uri->segment(3).'/'.$this->uri->segment(4));
+    $actin_url = base_url('user/login/password_reset/'.$this->uri->segment(3).'/'.$this->uri->segment(4));
 }else{
-    $action_url = base_url('user/password_reset/');
+    $action_url = base_url('user/login/password_reset/');
 }
 ?>
 <form action="<?= $action_url; ?>" method="post">

@@ -54,5 +54,5 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'user/login';
 $route['dashboard'] = 'dashboard/index';
-$route['forgot_password'] = 'login/forgot_password';
+$route['forgot_password'] = 'user/login/forgot_password';
 

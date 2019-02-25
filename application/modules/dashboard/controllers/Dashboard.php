@@ -20,7 +20,9 @@ class Dashboard extends MX_Controller
 	{
 		//echo "<br><br><br><h1 align='center'>Welcome User</h1>";
         //echo '<p align="center"><a href="'.base_url().'dashboard/logout">Logout</a></p>';
+        $this->load->view('user/header');
         $this->load->view('dashboard');
+        $this->load->view('user/footer');
 
 	}
 	function logout(){

@@ -3,8 +3,8 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-offset-3" align="centre">
             <img src=><br><br>
-
-            <form method="post" action="<?php echo base_url();?>user/login/validation">
+            <div id="l-login">
+            <form method="post" class="form" action="<?php echo base_url();?>user/login/validation">
                 <?php if($this->session->flashdata('message')): ?>
                     <?php
                     echo '<p class="alert alert-danger">'.
@@ -36,6 +36,7 @@
                         '</p>'
                     ?>
                 <?php endif; ?>
+                <h3 class="text-center text-info">Login</h3>
 
 
                 <div class="form-group">
@@ -57,10 +58,11 @@
                 </div>
             </form>
             <div class="lcb-navigation">
-                <a href="<?php echo base_url();?>user/login/forgot_password">Forgot Password</a>
-
+                <a href="<?php echo base_url();?>user/login/forgot_password" data-ma-action="login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
             </div>
         </div>
+
+
     </div>
 </div>
 

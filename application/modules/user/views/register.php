@@ -1,18 +1,18 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
     <div class="container" style="margin-top 100px">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center align-items-center">
             <div class="col-md-6 col-offset-3" align="centre">
                 <img src=><br><br>
-                <?php
-                if($this->session->flashdata('message')){
-                    echo '
-                <div class = "alert alert-success">
-                '.$this->session->flashdata("message").'
-                </div>
-                ';
-                }
-                ?>
-                <form action="<?php echo base_url();?>user/validation" method="post" >
+
+                <form class="form" action="<?php echo base_url();?>user/validation" method="post" >
+                    <h3 class="text-center text-info">Create Account</h3>
+                    <?php if($this->session->flashdata('message')): ?>
+                        <?php
+                        echo '<p class="alert alert-danger">'.
+                            $this->session->flashdata('message').
+                            '</p>'
+                        ?>
+                    <?php endif; ?>
                     <div class="form-group">
                         <input type="text" placeholder="Name.." name="user_name" class="form-control" value="<?php echo set_value('user_name')?>">
                         <span class="text-danger"> <?php echo form_error('user_name');?></span>
@@ -32,7 +32,7 @@
 
 
                 </form>
-                <button><a href="<?php echo base_url('')?>user/login">Login</a></button>
+                <button class="btn btn-primary" style="text-decoration-color: white; text-decoration: none; background-color: white"><a href="<?php echo base_url('')?>user/login">Login</a></button>
 
     </div>
     </div>
