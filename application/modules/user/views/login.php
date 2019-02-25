@@ -3,39 +3,70 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-offset-3" align="centre">
             <img src=><br><br>
-            <form>
-                <input placeholder="Email..." name="email" class="form-control"><br>
-                <input placeholder="Password.." name="password" class="form-control"><br>
-                <input type="submit" value="Log in" class="btn btn-primary">
+
+            <form method="post" action="<?php echo base_url();?>user/login/validation">
+                <?php if($this->session->flashdata('message')): ?>
+                    <?php
+                    echo '<p class="alert alert-danger">'.
+                        $this->session->flashdata('message').
+                        '</p>'
+                    ?>
+                <?php endif; ?>
+
+                <?php if($this->session->flashdata('invalid_reset_code')): ?>
+                    <?php
+                    echo '<p class="alert alert-danger">'.
+                        $this->session->flashdata('invalid_reset_code').
+                        '</p>'
+                    ?>
+                <?php endif; ?>
+
+                <?php if($this->session->flashdata('user_logged_out')): ?>
+                    <?php
+                    echo '<p class="alert alert-success">'.
+                        $this->session->flashdata('user_logged_out').
+                        '</p>'
+                    ?>
+                <?php endif; ?>
+
+                <?php if($this->session->flashdata('updated_password')): ?>
+                    <?php
+                    echo '<p class="alert alert-success">'.
+                        $this->session->flashdata('updated_password').
+                        '</p>'
+                    ?>
+                <?php endif; ?>
+
+
+                <div class="form-group">
+                    <input type="email" placeholder="Email..." name="user_email" class="form-control" value="<?php echo set_value('user_email')?>" >
+                    <span class="text-danger"> <?php echo form_error('user_email');?></span>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password.." name="user_password" class="form-control" value="<?php echo set_value('user_password')?>"><br>
+                    <span class="text-danger"> <?php echo form_error('user_password');?></span>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="remember_me" value="true">
+                    <i class="input-helper"></i>
+                    <label>Keep me Signed in</label>
+
+                </div>
+                <div class="form-group">
+                <input type="submit" name="login" value="Log in" class="btn btn-primary"> <a href="<?php echo base_url();?>user/index">Register</a>
+                </div>
             </form>
-        </div>
-    </div>
-</div>
-<div class="lcb-navigation">
-    <a href="#" data-ma-action="login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
-</div>
-</div>
+            <div class="lcb-navigation">
+                <a href="<?php echo base_url();?>user/login/forgot_password">Forgot Password</a>
 
-<!-- Forgot Password -->
-<div class="lc-block" id="l-forget-password">
-    <form action="#" method="POST" class="lcb-form">
-        <p class="text-center">A reset link will be sent to the email address below</p>
-
-
-
-        <div class="input-group m-b-20">
-            <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
-            <div class="fg-line">
-                <input type="text" name="email" class="form-control input-lg" value="#" placeholder="Email Address" required autofocus><br>
             </div>
         </div>
-        <button type="submit" class="btn btn-login btn-default btn-float"><i class="zmdi zmdi-check"></i></button><br>
-    </form>
-
-    <div class="lcb-navigation">
-        <a href="#" data-ma-action="login-switch" data-ma-block="#l-login"><i class="zmdi zmdi-long-arrow-right"></i> <span>Sign in</span></a><br>
     </div>
 </div>
+
+
+
+
 
 <?php
 /**

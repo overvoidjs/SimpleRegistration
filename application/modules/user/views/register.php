@@ -3,6 +3,15 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-offset-3" align="centre">
                 <img src=><br><br>
+                <?php
+                if($this->session->flashdata('message')){
+                    echo '
+                <div class = "alert alert-success">
+                '.$this->session->flashdata("message").'
+                </div>
+                ';
+                }
+                ?>
                 <form action="<?php echo base_url();?>user/validation" method="post" >
                     <div class="form-group">
                         <input type="text" placeholder="Name.." name="user_name" class="form-control" value="<?php echo set_value('user_name')?>">
@@ -13,12 +22,17 @@
                         <span class="text-danger"> <?php echo form_error('user_email');?></span>
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="Password.." name="password" class="form-control" value="<?php echo set_value('user_password')?>"><br>
+                        <input type="password" placeholder="Password.." name="user_password" class="form-control" value="<?php echo set_value('user_password')?>"><br>
                         <span class="text-danger"> <?php echo form_error('user_password');?></span>
                     </div>
 
-                    <input type="submit" value="Register" class="btn btn-primary"><br>
+                    <div class="form-group">
+                        <input type="submit" name="register" value="Register" class="btn btn-info" />
+                    </div>
+
+
                 </form>
+                <button><a href="<?php echo base_url('')?>user/login">Login</a></button>
 
     </div>
     </div>
